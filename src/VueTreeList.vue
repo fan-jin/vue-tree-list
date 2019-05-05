@@ -411,7 +411,7 @@
       margin-left: -1rem;
     }
     .vtl-offset {
-      padding-left: 8px;
+      padding-left: 10px;
     }
     .vtl-operation {
       margin-left: 2rem;
