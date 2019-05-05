@@ -35,7 +35,11 @@
         <div class="vtl-node-content" v-if="!editable">
           {{model.name}}
         </div>
-        <input v-else class="vtl-input" type="text" ref="nodeInput" :value="model.name" @input="updateName" @blur="setUnEditable">
+        <template v-else>
+          <div class="centerx default-input">
+            <vs-input class="inputx" v-model="model.name"/>
+          </div>
+        </template>
         <div class="vtl-operation" v-show="isHover">
           <span title="add tree node" @click.stop.prevent="addChild(false)" v-if="!model.isLeaf && !model.addTreeNodeDisabled">
             <slot name="addTreeNode">
@@ -86,9 +90,12 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import { Tree, TreeNode } from './Tree.js'
   import { addHandler, removeHandler } from './tools.js'
-
+  import { vsInput } from 'vuesax'
+  import 'vuesax/dist/vuesax.css'
+  Vue.use(vsInput)
   let fromComp = null
 
   export default {
@@ -164,10 +171,11 @@
     },
     methods: {
       updateName (e) {
-        var oldName = this.model.name;
-        this.model.changeName(e.target.value)
-        var node = this.getRootNode();
-        node.$emit('change-name', {'id': this.model.id, 'oldName': oldName, 'newName': e.target.value})
+        // console.log(e)
+        // var oldName = this.model.name;
+        // this.model.changeName(e.target.value)
+        // var node = this.getRootNode();
+        // node.$emit('change-name', {'id': this.model.id, 'oldName': oldName, 'newName': e.target.value})
       },
 
       delNode () {
@@ -177,11 +185,6 @@
 
       setEditable () {
         this.editable = true
-        this.$nextTick(() => {
-          const $input = this.$refs.nodeInput
-          $input.focus()
-          $input.setSelectionRange(0, $input.value.length)
-        })
       },
 
       setUnEditable () {
