@@ -23,12 +23,12 @@
 
         <span v-if="model.isLeaf">
           <slot name="leafNodeIcon">
-            <feather type='file'/>
+            <feather type="file"/>
           </slot>
         </span>
         <span v-else>
           <slot name="treeNodeIcon">
-            <feather type='folder'/>
+            <feather type="folder"/>
           </slot>
         </span>
 
