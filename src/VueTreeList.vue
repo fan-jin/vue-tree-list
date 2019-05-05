@@ -17,18 +17,20 @@
         @mouseover='mouseOver'
         @mouseout='mouseOut'
         @click.stop='click'>
-        <span class="vtl-caret vtl-is-small" v-if="model.children && model.children.length > 0">
+        <span class="vtl-caret" v-if="model.children && model.children.length > 0">
           <feather :type="caretClass" @click.prevent.stop="toggle"/>
+        </span>
+        <span v-else class="vtl-offset">
         </span>
 
         <span v-if="model.isLeaf">
           <slot name="leafNodeIcon">
-            <feather type="file"/>
+            <feather type="file" class="vtl-icon"/>
           </slot>
         </span>
         <span v-else>
           <slot name="treeNodeIcon">
-            <feather type="folder"/>
+            <feather type="folder" class="vtl-icon"/>
           </slot>
         </span>
 
@@ -43,22 +45,22 @@
         <div class="vtl-operation" v-show="isHover">
           <span title="add tree node" @click.stop.prevent="addChild(false)" v-if="!model.isLeaf && !model.addTreeNodeDisabled">
             <slot name="addTreeNode">
-              <i class="vtl-icon vtl-icon-folder-plus-e"></i>
+              <feather type="folder-plus"/>
             </slot>
           </span>
           <span title="add leaf node" @click.stop.prevent="addChild(true)" v-if="!model.isLeaf && !model.addLeafNodeDisabled">
             <slot name="addLeafNode">
-              <i class="vtl-icon vtl-icon-plus"></i>
+              <feather type="file-plus"/>
             </slot>
           </span>
           <span title="edit" @click.stop.prevent="setEditable" v-if="!model.editNodeDisabled">
             <slot name="editNode">
-              <i class="vtl-icon vtl-icon-edit"></i>
+              <feather type="edit"/>
             </slot>
           </span>
           <span title="delete" @click.stop.prevent="delNode" v-if="!model.delNodeDisabled">
             <slot name="delNode">
-              <i class="vtl-icon vtl-icon-trash"></i>
+              <feather type="trash-2"/>
             </slot>
           </span>
         </div>
@@ -333,6 +335,7 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
+    padding-right: 6px;
 
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
@@ -406,6 +409,9 @@
     }
     .vtl-caret {
       margin-left: -1rem;
+    }
+    .vtl-offset {
+      padding-left: 8px;
     }
     .vtl-operation {
       margin-left: 2rem;
