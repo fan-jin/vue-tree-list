@@ -18,7 +18,7 @@
         @mouseout='mouseOut'
         @click.stop='click'>
         <span class="vtl-caret vtl-is-small" v-if="model.children && model.children.length > 0">
-          <i class="vtl-icon" :class="caretClass" @click.prevent.stop="toggle"></i>
+          <feather :type="caretClass" @click.prevent.stop="toggle"/>
         </span>
 
         <span v-if="model.isLeaf">
@@ -94,8 +94,11 @@
   import { Tree, TreeNode } from './Tree.js'
   import { addHandler, removeHandler } from './tools.js'
   import { vsInput } from 'vuesax'
+  import VueFeather from 'vue-feather';
+
   import 'vuesax/dist/vuesax.css'
   Vue.use(vsInput)
+  Vue.use(VueFeather);
   let fromComp = null
 
   export default {
@@ -132,7 +135,7 @@
       },
 
       caretClass () {
-        return this.expanded ? 'vtl-icon-caret-down' : 'vtl-icon-caret-right'
+        return this.expanded ? 'chevron-down' : 'chevron-right'
       },
 
       isFolder () {
